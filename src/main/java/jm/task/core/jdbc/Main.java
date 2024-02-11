@@ -12,8 +12,13 @@ public class Main {
     public static void main(String[] args) {
         UserDao userDao = new UserDaoJDBCImpl();
         userDao.createUsersTable();
-
-        //userDao.dropUsersTable();
-        //userDao.saveUser("Name1", "LastName1", (byte) 20);
+        userDao.saveUser("Andrey", "Zaikin", (byte) 26);
+        userDao.saveUser("Arseny", "Solotyushin", (byte) 27);
+        userDao.saveUser("Daniil", "Saltykov", (byte) 27);
+        userDao.saveUser("Vlad", "Zayc", (byte) 27);
+        List<User> userList = userDao.getAllUsers();
+        System.out.println(userList);
+        userDao.cleanUsersTable();
+        userDao.dropUsersTable();
     }
 }
