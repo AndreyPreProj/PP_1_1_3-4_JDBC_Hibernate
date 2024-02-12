@@ -18,8 +18,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        try (SessionFactory factory = util.getSessionFactory()) {
-            Session session = factory.getCurrentSession();
+        try (SessionFactory factory = util.getSessionFactory(); Session session = factory.getCurrentSession()) {
             session.beginTransaction();
             session.getTransaction().commit();
         }
@@ -27,8 +26,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void dropUsersTable() {
-        try (SessionFactory factory = util.getSessionFactory()) {
-            Session session = factory.getCurrentSession();
+        try (SessionFactory factory = util.getSessionFactory(); Session session = factory.getCurrentSession()) {
             session.beginTransaction();
             session.createSQLQuery("DROP TABLE IF EXISTS kata.users").executeUpdate();
             session.getTransaction().commit();
@@ -37,8 +35,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-        try (SessionFactory factory = util.getSessionFactory()) {
-            Session session = factory.getCurrentSession();
+        try (SessionFactory factory = util.getSessionFactory(); Session session = factory.getCurrentSession()) {
             session.beginTransaction();
             User user = new User(name, lastName, age);
             session.save(user);
@@ -49,8 +46,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void removeUserById(long id) {
-        try (SessionFactory factory = util.getSessionFactory()) {
-            Session session = factory.getCurrentSession();
+        try (SessionFactory factory = util.getSessionFactory(); Session session = factory.getCurrentSession()) {
             session.beginTransaction();
             User user = session.get(User.class, id);
             session.delete(user);
@@ -61,8 +57,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         List<User> users = null;
-        try (SessionFactory factory = util.getSessionFactory()) {
-            Session session = factory.getCurrentSession();
+        try (SessionFactory factory = util.getSessionFactory(); Session session = factory.getCurrentSession()) {
             session.beginTransaction();
             users = session.createQuery("from User")
                     .getResultList();
@@ -73,8 +68,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void cleanUsersTable() {
-        try (SessionFactory factory = util.getSessionFactory()) {
-            Session session = factory.getCurrentSession();
+        try (SessionFactory factory = util.getSessionFactory(); Session session = factory.getCurrentSession()) {
             session.beginTransaction();
             session.createSQLQuery("DELETE FROM kata.users").executeUpdate();
             session.getTransaction().commit();
